@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import {useAction} from './hooks/useAction'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [term, setterm] = useState('')
+    // const dispatch = useDispatch()
+    const {searchData} = useAction()
+
+    const onSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault()
+        
+        searchData(term)
+        // dispatch( searchActionCreator.searchData(term))
+    }
+
+    return (
+        <div>
+            <h1>You can search </h1>
+            <form onSubmit={onSubmit}>
+                <input onChange={e=>setterm(e.target.value)}/>
+                <button> Search </button>
+            </form>
+        </div>
+    )
 }
 
-export default App;
+export default App
